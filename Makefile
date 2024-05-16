@@ -1,28 +1,26 @@
-# Compiler flags
-CFLAGS = -Wall -Wextra -pedantic -std=c11 -ggdb
+.PHONY: all lib src clean clean-lib clean-src install uninsall
 
-# Source files
-SRCS = $(wildcard *.c)
+all: lib src 
 
-# Object files
-OBJS = $(SRCS:.c=.o)
+lib:
+	$(MAKE) -C lib
 
-# Executable name
-TARGET = address_book
+src:
+	$(MAKE) -C src
 
-.PHONY: all clean
 
-# Default target
-all: $(TARGET)
+clean: clean-lib clean-src
 
-# Rule to build the executable
-$(TARGET): $(OBJS)
-	$(CC) $(CFLAGS) $(OBJS) -o $(TARGET)
+clean-lib:
+	$(MAKE) -C lib clean
 
-# Rule to compile each .c file into .o files
-%.o: %.c
-	$(CC) $(CFLAGS) -c $< -o $@
+clean-src:
+	$(MAKE) -C src clean
 
-# Clean rule
-clean:
-	rm -f $(OBJS) $(TARGET)
+
+install-lib:
+	$(MAKE) -C lib install
+
+uninstall-lib:
+	$(MAKE) -C lib uninstall
+

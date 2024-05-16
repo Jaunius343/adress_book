@@ -1,8 +1,8 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "address_book.h"
-#include "helper_functions.h"
+#include "../include/helper_functions.h"
+#include <address_book.h>
 
 FILE *open_address_file(char *filename)
 {

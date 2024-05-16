@@ -3,8 +3,8 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "address_book.h"
-#include "helper_functions.h"
+#include "../include/helper_functions.h"
+#include <address_book.h>
 
 int flag = 1;
 
@@ -13,15 +13,10 @@ void sig_handler(int signum)
 	flag = 0;
 }
 
-void sigterm_handler(int signum)
-{
-	flag = 0;
-}
-
 int main(void)
 {
 	signal(SIGINT, sig_handler);
-	signal(SIGTERM, sigterm_handler);
+	signal(SIGTERM, sig_handler);
 
 	struct Person *list = NULL;
 	FILE *address_file  = NULL;

@@ -3,7 +3,7 @@
 #include <string.h>
 #define DELIMETER ","
 
-#include "address_book.h"
+#include <address_book.h>
 
 static struct Person *create_address_node(char *address_line);
 
@@ -126,31 +126,29 @@ struct Person *addresses_find_by_key(struct Person *list, const char *key)
 
 	struct Person *current = list;
 
-	struct Person *matches = NULL; 
-    struct Person *last_match = NULL; 
+	struct Person *matches	  = NULL;
+	struct Person *last_match = NULL;
 
 	while (current != NULL) {
 		// Compare the search criteria with each field
-		if (strstr(current->name, key) != NULL || 
-            strstr(current->surname, key) != NULL ||
-            strstr(current->email, key) != NULL || 
-            strstr(current->number, key) != NULL) {
+		if (strstr(current->name, key) != NULL || strstr(current->surname, key) != NULL ||
+		    strstr(current->email, key) != NULL || strstr(current->number, key) != NULL) {
 			struct Person *match =
 				create_node(current->name, current->surname, current->email, current->number);
-			if (match != NULL) {	
-                if (matches == NULL) {
-                    matches = match;
-                    last_match = match;
-                } else {
-                    last_match->next = match;
-                    last_match = match;
-                }
-				
+			if (match != NULL) {
+				if (matches == NULL) {
+					matches	   = match;
+					last_match = match;
+				} else {
+					last_match->next = match;
+					last_match	 = match;
+				}
+
 			} else {
 				// Handle memory allocation failure (e.g., by freeing previously allocated memory)
 				addresses_delete_list(&matches);
-                return NULL;
-            }
+				return NULL;
+			}
 		}
 		current = current->next;
 	}
